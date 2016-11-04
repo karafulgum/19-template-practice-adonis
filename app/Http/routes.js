@@ -20,16 +20,14 @@ const fetch = require('node-fetch');
 
 
 Route.get('/', function * (request, response) {
-  // yield response.sendView('form');
 
   const apiUrl = yield fetch('http://json-data.herokuapp.com/forms');
-  const data = yield apiUrl.json();
-  response.send(data);
+  const formInputs = yield apiUrl.json();
+  yield response.sendView('form', {formInputs});
 });
 
-// Route.post('/form', function * (request, response) {
-//   // Get an object of the request info for just "street", "city" and "zip"
-//   const inputs = request.only('street', 'city', 'zip');
-//
-//   response.send(inputs);
-// });
+Route.post('/', function * (request, response) {
+  const inputs = request.all();
+
+  response.send(inputs);
+});

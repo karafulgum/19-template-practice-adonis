@@ -5,34 +5,38 @@
     <title>Join Our App</title>
   </head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <body>
     <div class="section">
       <div class="container">
-        <form @submit.prevent="submitForm" class="panel" action="/" method="POST">
+        <form class="panel" action="/" method="POST">
+          {{ csrfField }}
           <p class="panel-heading">
             Sign Up For My Web App
           </p>
           <div class="panel-block">
-            <p class="control has-icon" v-for="formInput in formInputs">
-              <template v-if="formInput.type === 'select'" v-model="formValues[formInput.id]">
-                <span class="select is-fullwidth">
-                  <select>
-                    <option v-for="option in formInput.options">{{ option.label }}</option>
-                  </select>
-                </span>
-              </template>
+            {% for formInput in formInputs %}
+              <p class="control has-icon">
+                {% if formInput.type === 'select' %}
+                  <span class="select is-fullwidth">
+                    <select>
+                      {% for option in formInput.options %}
+                        <option>{{ option.label }}</option>
+                      {% endfor %}
+                    </select>
+                  </span>
+                {% else %}
+                  {% if formInput.type === 'textarea' %}
+                    <textarea class="input textarea" placeholder="{{ formInput.label }}"></textarea>
+                    <i class="{{formInput.icon}} fa" aria-hidden="true"></i>
+                  {% else %}
+                    <input class="input" placeholder="{{formInput.label}}">
+                    <i class="{{formInput.icon}} fa" aria-hidden="true"></i>
+                  {% endif %}
+                {% endif %}
+              </p>
+            {% endfor %}
 
-              <template v-else>
-                <template v-if="formInput.type === 'textarea'">
-                  <textarea class="input textarea" :placeholder="formInput.label" v-model="formValues[formInput.id]"></textarea>
-                  <i :class="formInput.icon" class="fa" aria-hidden="true"></i>
-                </template>
-                <template v-else>
-                  <input class="input" :placeholder="formInput.label" v-model="formValues[formInput.id]">
-                  <i :class="formInput.icon" class="fa" aria-hidden="true"></i>
-                </template>
-              </template>
-            </p>
           </div>
           <div class="panel-block">
             <button class="button is-primary is-fullwidth">Submit</button>
