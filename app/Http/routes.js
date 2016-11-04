@@ -27,7 +27,7 @@ Route.get('/', function * (request, response) {
 });
 
 Route.post('/', function * (request, response) {
-  const inputs = request.all();
+  const inputs = request.except('_csrf');
 
-  response.send(inputs);
+  yield response.sendView('results', { inputs });
 });
