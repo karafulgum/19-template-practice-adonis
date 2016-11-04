@@ -19,7 +19,7 @@
               <p class="control has-icon">
                 {% if formInput.type === 'select' %}
                   <span class="select is-fullwidth">
-                    <select>
+                    <select name="{{formInput.id}}">
                       {% for option in formInput.options %}
                         <option>{{ option.label }}</option>
                       {% endfor %}
@@ -27,10 +27,10 @@
                   </span>
                 {% else %}
                   {% if formInput.type === 'textarea' %}
-                    <textarea class="input textarea" placeholder="{{ formInput.label }}"></textarea>
+                    <textarea class="input textarea" placeholder="{{ formInput.label }}" name="{{formInput.id}}"></textarea>
                     <i class="{{formInput.icon}} fa" aria-hidden="true"></i>
                   {% else %}
-                    <input class="input" placeholder="{{formInput.label}}">
+                    <input class="input" placeholder="{{formInput.label}}" name="{{formInput.id}}">
                     <i class="{{formInput.icon}} fa" aria-hidden="true"></i>
                   {% endif %}
                 {% endif %}
