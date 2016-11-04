@@ -18,7 +18,9 @@
 const Route = use('Route')
 
 Route.get('/', function * (request, response) {
-  yield response.sendView('form');
+  const apiUrl = yield fetch('http://json-data.herokuapp.com/forms');
+  const data = yield apiUrl.json();
+  response.send(data);
 });
 
 // Route.post('/form', function * (request, response) {
