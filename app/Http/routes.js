@@ -15,9 +15,13 @@
 | Route.resource('user', 'UserController')
 */
 
-const Route = use('Route')
+const Route = use('Route');
+const fetch = require('node-fetch');
+
 
 Route.get('/', function * (request, response) {
+  // yield response.sendView('form');
+
   const apiUrl = yield fetch('http://json-data.herokuapp.com/forms');
   const data = yield apiUrl.json();
   response.send(data);
