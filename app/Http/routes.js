@@ -17,4 +17,13 @@
 
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+Route.get('/', function * (request, response) {
+  yield response.sendView('form');
+});
+
+// Route.post('/form', function * (request, response) {
+//   // Get an object of the request info for just "street", "city" and "zip"
+//   const inputs = request.only('street', 'city', 'zip');
+//
+//   response.send(inputs);
+// });

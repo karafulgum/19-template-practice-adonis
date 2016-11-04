@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Join Our App</title>
+  </head>
+  <body>
+    <div class="section">
+      <div class="container">
+        <form @submit.prevent="submitForm" class="panel">
+          <p class="panel-heading">
+            Sign Up For My Web App
+          </p>
+          <div class="panel-block">
+            <p class="control has-icon" v-for="formInput in formInputs">
+              <template v-if="formInput.type === 'select'" v-model="formValues[formInput.id]">
+                <span class="select is-fullwidth">
+                  <select>
+                    <option v-for="option in formInput.options">{{ option.label }}</option>
+                  </select>
+                </span>
+              </template>
+
+              <template v-else>
+                <template v-if="formInput.type === 'textarea'">
+                  <textarea class="input textarea" :placeholder="formInput.label" v-model="formValues[formInput.id]"></textarea>
+                  <i :class="formInput.icon" class="fa" aria-hidden="true"></i>
+                </template>
+                <template v-else>
+                  <input class="input" :placeholder="formInput.label" v-model="formValues[formInput.id]">
+                  <i :class="formInput.icon" class="fa" aria-hidden="true"></i>
+                </template>
+              </template>
+            </p>
+          </div>
+          <div class="panel-block">
+            <button class="button is-primary is-fullwidth">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
